@@ -13,6 +13,7 @@ module.exports = {
       tags: Joi.string().required()
     }
   },
+  cors:{origin: ['http://localhost:8100'], credentials: true},
   handler: function(request, reply){
     Note.create(request.auth.credentials, request.payload, function(err, noteId){
       reply({noteId:noteId}).code(err ? 400 : 200);
