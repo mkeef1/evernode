@@ -16,47 +16,42 @@ var expect     = require('chai').expect,
 
 
 describe('Note', function(){
+  var noteId;
+
   beforeEach(function(done){
     cp.execFile(__dirname + '/../scripts/clean-db.sh', [db], {cwd:__dirname + '/../scripts'}, function(err, stdout, stderr){
-      done();
+      Note.create({id:1}, {title:'a', body:'b', tags:'c, d, e'}, function(results){
+        noteId = results;
+        console.log('id', results);
+        done();
+      });
     });
   });
 
-  describe('#save', function(){
-    it('should save a new note', function(done){
-      var note = new Note({title:'note 1'});
-
-      expect(note).to.be.instanceof(Note);
-      done();
-      });
-    });
 
   describe('.create', function(){
     it('should create a new note', function(done){
-      var note = {title: 'note1', body: 'body 1', tags:'tag1, tag2'};
-      Note.create({id:1}, note, function(err, noteId){
+      Note.create({id:1}, {title:'a1', body:'b1', tags:'c1,c2,c3'}, function(err, noteId){
         expect(err).to.be.null;
         done();
       });
     });
   });
 
-  // describe('.login', function(){
-  //   it('should login a new user', function(done){
-  //     User.login({username:'bob', password:'1234'}, function(user){
-  //       expect(user.username).to.equal('bob');
-  //       done();
-  //     });
-  //   });
-  // it('should NOT login a User - bad username', function(done){
-  //     User.login({username:'wrong', password:'123'}, function(user){
-  //       expect(user).to.be.undefined;
-  //       done();
-  //     });
-  //   });
-  //   it('should NOT login a User - bad password', function(done){
-  //     User.login({username:'bob', password:'wrong'}, function(user){
-  //       expect(user).to.be.undefined;
+  describe('.query', function(){
+    it('should query all notes', function(done){
+      Note.query({id:1}, {}, function(err, results){
+        expect(results).to.have.length(1);
+        done();
+      });
+    });
+  });
+
+  // describe('.uploadmobile', function(){
+  //   it('should upload a photo', function(done){
+  //     Note.uploadmobile({token:'tkn'}, 'b64image', noteId, function(err, results){
+  //       expect(err).to.be.null;
+  //       console.log(err);
   //       done();
   //     });
   //   });
