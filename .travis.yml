@@ -19,3 +19,5 @@ env:
   global:
     - DATABASE_URL=postgres://postgres@localhost/evernode_test
     - AWS_BUCKET=mattevernote-test
+    - secure: "lwLYGAROpyMWpT1nHY+BgkxyeYREccgb6iK3/MqeBqm9nU2yIHAV5//rh8Me5wpwFT/KimM5aBZIxzbskK8Ynac4gZnezVSJQ6Mq5OdkALB4g8zBkMy2dCWSU6yynEyQqddsXZ/RjkrIl+NOHbHHHL+UYdY5sfbXb5hG2JRmSLw="
+    - secure: "Y02siAlXkw739YRUUC4qmLBupcPYvBVZM7pz1jKkaieZHqB8Psn5BDpNBjrvEZ0804jZneuyAwuQ9g7RjiHGJZesLcxkK6rzH0pXAqm1l3k72Z4U48zl6a4IWmRSuBuZasEYoXd/UeTiuWuUMDAi189BVuP3lGcEjaT0Kt6+F5w="
