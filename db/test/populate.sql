@@ -1,0 +1,1 @@
+insert into users(id, username, password, avatar, token) values(222, 'bob', '$2a$08$IMmKECXUIK58MB5EvU5eJ.FStI607RRLxrggVsnOR/ktGDYIxosMG', 'a.png', 'tkn');
