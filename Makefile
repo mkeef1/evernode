@@ -3,4 +3,4 @@ test:
 test-cov:
 	@node node_modules/lab/bin/lab -r lcov
 
-	.PHONY test test-cov
+.PHONY: test test-cov
