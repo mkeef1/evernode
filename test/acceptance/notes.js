@@ -135,4 +135,22 @@ describe('Notes', function(){
       });
     });
   });
+
+  describe('post /notes/noteId/upload-mobile', function(){
+    it('should upload a photo', function(done){
+      var options = {
+        method: 'post',
+        url: '/notes/' + noteId + '/upload-mobile',
+        headers: {cookie:cookie},
+        payload: {
+          b64: 'b64string'
+        }
+      };
+
+      server.inject(options, function(response){
+        expect(response.statusCode).to.equal(200);
+        done();
+      });
+    });
+  });
 });
