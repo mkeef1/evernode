@@ -30,7 +30,6 @@ describe('Users', function(){
 
       server.inject(options, function(response){
         cookie = response.headers['set-cookie'][0].match(/hapi-cookie=[^;]+/)[0];
-        console.log(cookie);
         done();
       });
     });
@@ -79,6 +78,23 @@ describe('Users', function(){
       var options = {
         method: 'delete',
         url: '/logout',
+        headers:{
+          cookie:cookie
+        }
+      };
+
+      server.inject(options, function(response){
+        expect(response.statusCode).to.equal(200);
+        done();
+      });
+    });
+  });
+
+  describe('get /status', function(){
+    it('should get status for a user', function(done){
+      var options = {
+        method: 'get',
+        url: '/status',
         headers:{
           cookie:cookie
         }
