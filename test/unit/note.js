@@ -11,49 +11,95 @@ var expect     = require('chai').expect,
     describe   = lab.describe,
     it         = lab.it,
     beforeEach = lab.beforeEach,
-    db         = h.getdb();
-
-
+    db         = h.getdb(),
+    fs         = require('fs');
 
 describe('Note', function(){
   var noteId;
 
   beforeEach(function(done){
     cp.execFile(__dirname + '/../scripts/clean-db.sh', [db], {cwd:__dirname + '/../scripts'}, function(err, stdout, stderr){
-      Note.create({id:1}, {title:'a', body:'b', tags:'c, d, e'}, function(results){
+      Note.create({id:1}, {title:'a',body:'b',tags:'c,d,e'}, function(err, results){
         noteId = results;
-        console.log('id', results);
         done();
       });
     });
   });
 
+  describe('constructor', function(){
+    it('should create a new Note object', function(done){
+      var n = new Note();
+      expect(n).to.be.instanceof(Note);
+      done();
+    });
+  });
 
-  describe('.create', function(){
-    it('should create a new note', function(done){
-      Note.create({id:1}, {title:'a1', body:'b1', tags:'c1,c2,c3'}, function(err, noteId){
+  describe('.upload', function(){
+    it('should upload an image', function(done){
+      var file = fs.createReadStream(__dirname + '/../fixtures/test.png');
+      Note.upload({token:'tok'}, file, 'test.png', noteId, function(err, results){
         expect(err).to.be.null;
         done();
       });
     });
   });
 
-  describe('.query', function(){
-    it('should query all notes', function(done){
-      Note.query({id:1}, {}, function(err, results){
-        expect(results).to.have.length(1);
+  describe('.uploadmobile', function(){
+    it('should upload a b64 encoded image', function(done){
+      Note.uploadmobile({token:'tok'}, 'b64image', noteId, function(err, results){
+        expect(err).to.be.null;
         done();
       });
     });
   });
 
-  // describe('.uploadmobile', function(){
-  //   it('should upload a photo', function(done){
-  //     Note.uploadmobile({token:'tkn'}, 'b64image', noteId, function(err, results){
-  //       expect(err).to.be.null;
-  //       console.log(err);
-  //       done();
-  //     });
-  //   });
-  // });
+  describe('.create', function(){
+    it('should create a note', function(done){
+      Note.create({id:1}, {title:'a',body:'b',tags:'c,d,e'}, function(err, results){
+        expect(err).to.be.null;
+        expect(results).to.be.above(0);
+        done();
+      });
+    });
+  });
+
+  describe('.show', function(){
+    it('should show a note', function(done){
+      Note.show({id:1}, noteId, function(err, results){
+        expect(err).to.be.null;
+        expect(results.title).to.equal('a');
+        done();
+      });
+    });
+  });
+
+  describe('.nuke', function(){
+    it('should nuke a note', function(done){
+      Note.nuke({id:1}, noteId, function(err, results){
+        expect(err).to.be.null;
+        expect(results).to.equal(noteId);
+        done();
+      });
+    });
+  });
+
+  describe('.count', function(){
+    it('should count notes from a user', function(done){
+      Note.count({id:1}, function(err, results){
+        expect(err).to.be.null;
+        expect(results).to.equal('1');
+        done();
+      });
+    });
+  });
+
+  describe('.query', function(){
+    it('should query notes from a user', function(done){
+      Note.query({id:1}, {}, function(err, results){
+        expect(err).to.be.null;
+        expect(results).to.have.length(1);
+        done();
+      });
+    });
+  });
 });
