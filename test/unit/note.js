@@ -46,7 +46,7 @@ describe('Note', function(){
 
   describe('.uploadmobile', function(){
     it('should upload a b64 encoded image', function(done){
-      Note.uploadmobile({token:'tok'}, 'b64image', noteId, function(err, results){
+      Note.uploadmobile({token:'tkn'}, 'b64image', noteId, function(err, results){
         expect(err).to.be.null;
         done();
       });
