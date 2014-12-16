@@ -37,7 +37,7 @@ describe('Note', function(){
   describe('.upload', function(){
     it('should upload an image', function(done){
       var file = fs.createReadStream(__dirname + '/../fixtures/test.png');
-      Note.upload({token:'tok'}, file, 'test.png', noteId, function(err, results){
+      Note.upload({token:'tkn'}, file, 'test.png', noteId, function(err, results){
         expect(err).to.be.null;
         done();
       });
