@@ -9,12 +9,12 @@ var cp         = require('child_process'),
 describe('register', function(){
   beforeEach(function(done){
     cp.execFile(__dirname + '/../../scripts/clean-db.sh', [db], {cwd:__dirname + '/../../scripts'}, function(err, stdout, stderr){
+      browser.get('/#/register');
       done();
     });
   });
 
   it('should get the register page', function(){
-    browser.get('/#/register');
     expect(element(by.css('div[ui-view] > h1')).getText()).toEqual('register');
   });
 

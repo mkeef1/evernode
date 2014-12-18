@@ -9,12 +9,12 @@ var cp         = require('child_process'),
 describe('login', function(){
   beforeEach(function(done){
     cp.execFile(__dirname + '/../../scripts/clean-db.sh', [db], {cwd:__dirname + '/../../scripts'}, function(err, stdout, stderr){
+      browser.get('/#/login');
       done();
     });
   });
 
   it('should get the login page', function(){
-    browser.get('/#/login');
     expect(element(by.css('div[ui-view] > h1')).getText()).toEqual('login');
   });
 
