@@ -1,14 +1,15 @@
 var config = {};
 
 config.seleniumAddress = 'http://localhost:4444/wd/hub';
-config.multiCapabitlities = [
+config.capabitlities = [
   {
-    'browserName': 'firefox'
+    browserName: 'firefox'
   }
 ];
 
 config.suites = {
-  homepage: 'test/e2e/homepage/**/*.spec.js'
+  homepage: 'test/e2e/homepage/**/*.spec.js',
+  authentication: 'test/e2e/authentication/**/*.spec.js'
 };
 
 config.jasmineNodeOpts = {
