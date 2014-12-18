@@ -137,7 +137,7 @@ describe('Notes', function(){
   });
 
   describe('post /notes/noteId/upload-mobile', function(){
-    it('should upload a photo', function(done){
+    it('should upload photos', function(done){
       var options = {
         method: 'post',
         url: '/notes/' + noteId + '/upload-mobile',
